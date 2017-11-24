@@ -19,25 +19,22 @@ int min = 1; //minimum number
 int generate_random_set_yes(); //random generate number with garanteed solution
 int generate_random_set(); //random generate number without garanteed solution
 bool dynamic_programming(int set[], int n, int sum);
-//int best_fit();
-
+int best_fit();
 
 int main()
 {
-	//while (generate_random_set_yes() == 99)//eliminate possibility of having sum that is odd
-	//{
-	//	generate_random_set_yes();
-	//}
+	while (generate_random_set_yes() == 99)//eliminate possibility of having sum that is odd
+	{
+		generate_random_set_yes();
+	}
 
-	//cout << "Enter the size of set: " << endl;
-	//cin >> SetSize;
-	//Set = new int[SetSize];	
-	//
-	//generate_random_set_yes();
-	//best_fit();
-	//delete[]  Set;
+	cout << "The element in set are" << endl;
 
-	generate_random_set_yes();
+	for (int j = 0; j < SetSize; j++)
+	{
+		cout << Set[j] << endl;
+	}
+
 	best_fit();
 	return 0;
 }
@@ -46,12 +43,11 @@ int generate_random_set_yes()
 {
 	int total = 0;
 	srand(time(NULL));
-	cout << endl;
 	for (int i = 0; i < SetSize - 1; i++) //reserve 1 number for second set
 	{
 
 		int result = rand() % (max - min + 1) + min; //generate random between max and min
-		cout << result << endl;
+		//cout << result << endl;
 		Set[i] = result;
 		total = total + result;
 	}
@@ -71,7 +67,7 @@ int generate_random_set_yes()
 		firstsum = firstsum + Set[arrcounter];
 		arrcounter++;
 	}
-	cout << "the first sum is " << firstsum<<endl;
+
 	//insert the remaining into the second array and calculate the sum
 	int secondcounter = 0;
 	while (arrcounter < SetSize-1)
@@ -81,7 +77,7 @@ int generate_random_set_yes()
 		arrcounter++;
 		secondcounter++;
 	}
-	cout << "the second sum is " << secondsum<<endl<<"diff"<< firstsum - secondsum;
+
 	//calculate the difference between sum of first array and second array
 	//put the diffenrence into the second array
 
@@ -89,32 +85,34 @@ int generate_random_set_yes()
 	{		
 		SecondSet[secondcounter] = firstsum - secondsum;
 	}
-
+	int index = 0;
 	for (int i = 0; i < SetSize; i++)
 	{
 		if (FirstSet[i] != 0)
 		{
 			Set[i] = FirstSet[i];
+			index++;
 		}
 		else
 		{
-			for (int j = 0; j < SetSize; j++)
-			{
-				if (SecondSet[j] == 0)
-				{
-					break;
-				}
-				Set[i] = SecondSet[j];
-				i++;
-			}			
+			break;
 		}
 	}
-	Set[SetSize-1] = firstsum - secondsum;
-	cout << "The element in set are" << endl;
+
 	for (int j = 0; j < SetSize; j++)
 	{
-		cout << Set[j] << endl;
+		if (SecondSet[j] != 0)
+		{
+			Set[index] = SecondSet[j];
+			index++;			
+		}
+		else
+		{
+			break;
+		}
 	}
+	
+	Set[SetSize-1] = firstsum - secondsum;
 
 	return 0;
 }
@@ -157,4 +155,55 @@ bool dynamic_programming(int set[], int n, int sum)
 	return dynamic_programming(set, n - 1, sum) || dynamic_programming(set, n - 1, sum - set[n - 1]);
 
 	//http://www.geeksforgeeks.org/dynamic-programming-subset-sum-problem/
+}
+
+int best_fit()
+{
+	int solution[10];//change size
+	int totalsum = 0, half = 0, diff = 0, index = 0;;
+
+	for (int i = 0; i < SetSize; i++)
+	{
+		totalsum = totalsum + Set[i];
+	}
+
+	half = totalsum / 2;
+	cout << "The target is " << half << endl;
+
+	int temp;
+
+	for (int i = 0; i < SetSize; i++)
+	{
+		for (int j = 0; j < SetSize - 1; j++)
+		{
+			if (Set[j] < Set[j + 1])
+			{
+				//we need to swap
+				temp = Set[j];
+				Set[j] = Set[j + 1];
+				Set[j + 1] = temp;
+			}
+		}
+	}
+	
+	for (int k = 0; k < SetSize; k++)
+	{
+		if (half - Set[k] > -1)
+		{
+			half = half - Set[k];
+			solution[index] = Set[k];
+			index++;
+		}		
+	}
+
+	cout << "Solution is:" << endl;
+	for (int i = 0; i < SetSize; i++)
+	{
+		if (solution[i] > -1)//eliminate empty array element
+		{
+			cout << solution[i] << endl;
+		}
+	}
+
+	return 0;
 }
