@@ -7,11 +7,11 @@
 
 using namespace std;
 
-int SetSize=10; //Size of element
-int Set[10] = {}; //Size of element
+int SetSize=200; //Size of element
+int Set[200] = {}; //Size of element
 //int *Set;
-int FirstSet[10] = {}; //Size of element
-int SecondSet[10] = {}; //Size of element
+int FirstSet[200] = {}; //Size of element
+int SecondSet[200] = {}; //Size of element
 
 int max = 50; //maximum number
 int min = 1; //minimum number
@@ -25,17 +25,17 @@ int main()
 {
 	while (generate_random_set_yes() == 99)//eliminate possibility of having sum that is odd
 	{
-		while (Set[10] == 0)
+		while (Set[199] == 0)
 		{
 			generate_random_set_yes();
 		}		
 	}
 
-	cout << "The element in set are" << endl;
+	cout << "The elements in set are: " << endl;
 
 	for (int j = 0; j < SetSize; j++)
 	{
-		cout << Set[j] << endl;
+		cout << "Set[" << j << "]: " << Set[j] << endl;
 	}
 
 	best_fit();
@@ -45,7 +45,7 @@ int main()
 int generate_random_set_yes()
 {
 	int total = 0;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	for (int i = 0; i < SetSize - 1; i++) //reserve 1 number for second set
 	{
 
@@ -123,7 +123,7 @@ int generate_random_set_yes()
 int generate_random_set()
 {
 	int total = 0;
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	cout << "not guarantee solution" << endl;
 	for (int i = 0; i < SetSize; i++)
 	{
@@ -162,7 +162,7 @@ bool dynamic_programming(int set[], int n, int sum)
 
 int best_fit()
 {
-	int solution[10];//change size
+	int solution[200];//change size
 	int totalsum = 0, half = 0, diff = 0, index = 0;;
 
 	for (int i = 0; i < SetSize; i++)
@@ -171,7 +171,7 @@ int best_fit()
 	}
 
 	half = totalsum / 2;
-	cout << "The target is " << half << endl;
+	cout << endl << "The target is " << half << endl;
 
 	int temp;
 
@@ -199,14 +199,17 @@ int best_fit()
 		}		
 	}
 
-	cout << "Solution is:" << endl;
+	cout << endl << "The solutions are: " << endl;
+	int solution_totalsum = 0;
 	for (int i = 0; i < SetSize; i++)
 	{
 		if (solution[i] > -1)//eliminate empty array element
 		{
-			cout << solution[i] << endl;
+			cout << i+1 << ". " << solution[i] << endl;
+			solution_totalsum += solution[i];
 		}
 	}
+	cout << endl << "Total up: " << solution_totalsum << endl;
 
 	return 0;
 }

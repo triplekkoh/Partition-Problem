@@ -1,2 +1,3 @@
-﻿  PartitionProblem.vcxproj -> C:\Users\ASUS\documents\visual studio 2015\Projects\PartitionProblem\Debug\PartitionProblem.exe
-  PartitionProblem.vcxproj -> C:\Users\ASUS\documents\visual studio 2015\Projects\PartitionProblem\Debug\PartitionProblem.pdb (Full PDB)
+﻿cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+  Main.cpp
+  PartitionProblem.vcxproj -> C:\Users\User\Documents\Partition-Problem\PartitionProblem\Debug\PartitionProblem.exe
