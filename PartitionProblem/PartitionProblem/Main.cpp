@@ -25,7 +25,10 @@ int main()
 {
 	while (generate_random_set_yes() == 99)//eliminate possibility of having sum that is odd
 	{
-		generate_random_set_yes();
+		while (Set[10] == 0)
+		{
+			generate_random_set_yes();
+		}		
 	}
 
 	cout << "The element in set are" << endl;
