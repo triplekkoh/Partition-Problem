@@ -13,8 +13,8 @@ int Set[200] = {}; //Size of element
 int FirstSet[200] = {}; //Size of element
 int SecondSet[200] = {}; //Size of element
 
-int max = 50; //maximum number
-int min = 1; //minimum number
+int max = 200; //maximum number
+int min = 100; //minimum number
 
 int generate_random_set_yes(); //random generate number with garanteed solution
 int generate_random_set(); //random generate number without garanteed solution
@@ -173,8 +173,12 @@ int best_fit()
 	half = totalsum / 2;
 	cout << endl << "The target is " << half << endl;
 
-	int temp;
+	int Set2[200] = {}; // change element
+	for (int i = 0; i < SetSize; i++) {
+		Set2[i] = Set[i];
+	}
 
+	int temp;
 	for (int i = 0; i < SetSize; i++)
 	{
 		for (int j = 0; j < SetSize - 1; j++)
@@ -188,7 +192,6 @@ int best_fit()
 			}
 		}
 	}
-	
 	for (int k = 0; k < SetSize; k++)
 	{
 		if (half - Set[k] > -1)
@@ -196,20 +199,62 @@ int best_fit()
 			half = half - Set[k];
 			solution[index] = Set[k];
 			index++;
-		}		
+		}
 	}
-
 	cout << endl << "The solutions are: " << endl;
 	int solution_totalsum = 0;
 	for (int i = 0; i < SetSize; i++)
 	{
 		if (solution[i] > -1)//eliminate empty array element
 		{
-			cout << i+1 << ". " << solution[i] << endl;
+			cout << i + 1 << ". " << solution[i] << endl;
 			solution_totalsum += solution[i];
 		}
 	}
 	cout << endl << "Total up: " << solution_totalsum << endl;
+	if (solution_totalsum != totalsum / 2) {
+		cout << "solution is not exact!" << endl;
+	}
+
+	
+	// if the solution is not exact, here it will loop again to find for next best solution
+	int retry = 0;
+	do {
+		//if (solution_totalsum != totalsum / 2) {
+		//	int solution_count = 0;
+		//	for (int j = 0; j < SetSize; j++) {
+		//		if (solution[j] > -1) {
+		//			solution_count += 1;
+		//		}
+		//	}
+		//	for (int i = 0; i < SetSize; i++) {
+		//		srand((unsigned int)time(NULL)); 
+		//		int result = rand() % (SetSize - 1 + 1) + 1;
+		//		if (result < solution_count) {
+		//			solution[result] = Set2[result];
+		//		}
+		//	}
+		//	if (solution_totalsum < totalsum / 2) {
+		//		retry = 1;
+		//	}
+		//	else if (solution_totalsum == totalsum / 2) {
+		//		int solution_totalsum = 0;
+		//		cout << "New solutions are: " << endl;
+		//		for (int i = 0; i < SetSize; i++)
+		//		{
+		//			if (solution[i] > -1)//eliminate empty array element
+		//			{
+		//				cout << i << ". " << solution[i] << endl;
+		//				solution_totalsum += solution[i];
+		//			}
+		//		}
+		//		cout << endl << "New Solutions Total up: " << solution_totalsum << endl;
+		//		break;
+		//	}
+		//}
+		
+
+	} while (retry != 0);
 
 	return 0;
 }
