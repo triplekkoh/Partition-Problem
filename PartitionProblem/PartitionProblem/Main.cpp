@@ -160,6 +160,41 @@ bool dynamic_programming(int set[], int n, int sum)
 	//http://www.geeksforgeeks.org/dynamic-programming-subset-sum-problem/
 }
 
+void firstfit(int blockSize[], int m, int processSize[], int n)
+{
+	//allocation not can't to be dynamic
+	int allocation[10];
+
+	memset(allocation, -1, sizeof(allocation));
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			if (blockSize[j] >= processSize[i])
+			{
+				allocation[i] = j;
+				blockSize[j] -= processSize[i];
+				break;
+			}
+		}
+
+		for (int i = 0; i < n; i++)
+		{
+			cout << i + 1 << "\t\t" << processSize[i] << "\t\t";
+			if (allocation[i] != -1)
+			{
+				cout << allocation[i] + 1;
+			}
+			else
+			{
+				cout << "Not Allocated";
+			}
+			cout << endl;
+		}
+	}
+}
+
 int best_fit()
 {
 	int solution[200];//change size
