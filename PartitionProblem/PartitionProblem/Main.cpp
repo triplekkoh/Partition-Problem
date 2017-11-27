@@ -163,7 +163,7 @@ bool dynamic_programming(int set[], int n, int sum)
 void firstfit(int blockSize[], int m, int processSize[], int n)
 {
 	//allocation not can't to be dynamic
-	int allocation[10];
+	int allocation[(sizeof(processSize)/sizeof(processSize[0]))];
 
 	memset(allocation, -1, sizeof(allocation));
 
